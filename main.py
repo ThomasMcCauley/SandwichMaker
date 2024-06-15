@@ -56,7 +56,7 @@ class SandwichMachine:
            Hint: include input() function here, e.g. input("how many quarters?: ")"""
         print("Please insert coins")
         largeDollars = int(input("How many dollars? ")) * 1.00
-        halfDollars = int(input("How many dollars? ")) * .50
+        halfDollars = int(input("How many half-dollars? ")) * .50
         quarters = int(input("How many quarters? ")) * 0.25
         nickles = int(input("How many nickles? ")) * 0.05
         total = largeDollars + halfDollars + quarters + nickles
@@ -79,9 +79,29 @@ class SandwichMachine:
            Hint: no output"""
         for ingredient, amount in order_ingredients.items():
             self.machine_resources[ingredient] -= amount
-        print ("{sandwhich_size} sandich is ready. Bon appetit!")
+        print (f" {sandwich_size} sandich is ready. Bon appetit!")
 
 ### Make an instance of SandwichMachine class and write the rest of the codes ###
 
 machine = SandwichMachine(resources)
+
+while True:
+    choice = input("What would you like? (small/ medium/ large/ off/ report): ").lower()
+    if choice == "off":
+        break
+
+    elif choice == "report":
+        print("implement report function to access resources")
+
+    elif choice in ["small", "medium", "large"]:##if choice is a size
+        sandwhich = recipes[choice]##creating sandwich variable for size
+
+        if machine.check_resources(sandwhich["ingredients"]):##if there are sufficient ingredients
+            transaction = machine.process_coins()##variable to complete transaction
+
+            if machine.transaction_result(transaction, sandwhich["cost"]):##calling transaction function
+                machine.make_sandwich(choice, sandwhich["ingredients"])##making sandwich with size and type
+    else:
+        print("Invalid choice. Please choose again")
+
 
