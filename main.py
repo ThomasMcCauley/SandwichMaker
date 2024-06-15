@@ -45,6 +45,11 @@ class SandwichMachine:
 
     def check_resources(self, ingredients):
         """Returns True when order can be made, False if ingredients are insufficient."""
+        for ingredient, amount in ingredients.items():
+            if self.machine_resources[ingredient] < amount:
+                print("Sorry! there is not enough {ingredient}.")
+                return False
+        return True
 
     def process_coins(self):
         """Returns the total calculated from coins inserted.
@@ -59,3 +64,6 @@ class SandwichMachine:
            Hint: no output"""
 
 ### Make an instance of SandwichMachine class and write the rest of the codes ###
+
+machine = SandwichMachine(resources)
+
