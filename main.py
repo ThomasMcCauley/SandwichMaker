@@ -47,7 +47,7 @@ class SandwichMachine:
         """Returns True when order can be made, False if ingredients are insufficient."""
         for ingredient, amount in ingredients.items():
             if self.machine_resources[ingredient] < amount:
-                print("Sorry! there is not enough {ingredient}.")
+                print("Sorry! there is not enough " + ingredient)
                 return False
         return True
 
@@ -81,6 +81,14 @@ class SandwichMachine:
             self.machine_resources[ingredient] -= amount
         print (f" {sandwich_size} sandich is ready. Bon appetit!")
 
+    def report(self):##report to list all available ingredients
+        for resource, amount in self.machine_resources.items():
+            if resource in ["bread", "ham",]:
+                unit = "slice(s)"##if resource is bread or ham, list it in slices
+            else:
+                unit = "pounds"##if resource is cheese, list in pounds
+            print(f" {resource.capitalize()}: {amount} {unit}")
+
 ### Make an instance of SandwichMachine class and write the rest of the codes ###
 
 machine = SandwichMachine(resources)
@@ -91,7 +99,7 @@ while True:
         break
 
     elif choice == "report":
-        print("implement report function to access resources")
+        machine.report()
 
     elif choice in ["small", "medium", "large"]:##if choice is a size
         sandwhich = recipes[choice]##creating sandwich variable for size
